@@ -36,20 +36,40 @@
         {{ $result = merge $result (dict "isDefault" true) }}
         {{ $result = merge $result (dict "exists" true) }}
 
+        <!-- Using local pictures -->
         {{ if $defaultImageSetting.local }}
-            {{ $siteResourceImage := resources.GetMatch (printf "%s" ($defaultImageSetting.src | safeURL)) }}
-
-            {{ if $siteResourceImage }}
-                <!-- Try search image under site's assets folder -->
-                {{ $result = merge $result (dict "permalink" $siteResourceImage.RelPermalink) }}
-                {{ $result = merge $result (dict "resource" $siteResourceImage) }}
+            <!-- if random images are turned on -->
+            {{ if $defaultImageSetting.random }}
+                {{ $siteResourceImages := resources.Match (printf "%s" ($defaultImageSetting.src | safeURL)) }}
+                {{ $siteResourceImagesLen := len $siteResourceImages }}
+                <!-- if the number of images found in the given gallery is greater than 0 -->
+                {{ if gt $siteResourceImages 0 }}
+                    <!-- Select a random image from the given gallery -->
+                    {{ $imageIdx := index (seq 0 (sub $siteResourceImagesLen 1) | shuffle) 0 }}
+                    {{ $selectedImg := index $siteResourceImages $imageIdx }}
+                    {{ $result = merge $result (dict "permalink" $selectedImg.RelPermalink) }}
+                    {{ $result = merge $result (dict "resource" $selectedImg) }}
+                {{ else }}
+                    <!-- There are no images in the given gallery -->
+                    {{ errorf "There are no images in the given gallery: %q" $defaultImageSetting.src }}
+                    {{ $result = merge $result (dict "exists" false) }}
+                {{ end }}
             {{ else }}
-                <!-- Can not find the image -->
-                {{ errorf "Failed loading image: %q" $defaultImageSetting.src }}
-                {{ $result = merge $result (dict "exists" false) }}
-            {{ end }}
 
-        {{ else }}
+                {{ $siteResourceImage := resources.GetMatch (printf "%s" ($defaultImageSetting.src | safeURL)) }}
+
+                {{ if $siteResourceImage }}
+                    <!-- Try search image under site's assets folder -->
+                    {{ $result = merge $result (dict "permalink" $siteResourceImage.RelPermalink) }}
+                    {{ $result = merge $result (dict "resource" $siteResourceImage) }}
+                {{ else }}
+                    <!-- Can not find the image -->
+                    {{ errorf "Failed loading image: %q" $defaultImageSetting.src }}
+                    {{ $result = merge $result (dict "exists" false) }}
+                {{ end }}
+            {{ end }}
+        <!-- 使用网络图片 -->
+        {{ else }} 
             <!-- External image -->
             {{ $result = merge $result (dict "permalink" (relURL $defaultImageSetting.src)) }}
         {{ end }}
