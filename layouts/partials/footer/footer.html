@@ -1,5 +1,7 @@
 {{- $ThemeVersion := "3.13.0" -}}
 <footer class="site-footer">
+    {{- $image := partialCached "helper/image" (dict "Context" . "Type" "footer") .RelPermalink "footer" -}}
+    
     <section class="copyright">
         &copy; 
         {{ if and (.Site.Params.footer.since) (ne .Site.Params.footer.since (int (now.Format "2006"))) }}
@@ -17,7 +19,18 @@
         {{- $Theme := printf `<b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b>` $ThemeVersion -}}
         {{- $DesignedBy := `<a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>` -}}
 
+        {{/*  备案信息  */}}
+        {{- $BeiAn := printf `
+            <a href="https://beian.miit.gov.cn" target="_blank">%sICP备 %s-1 号</a>
+            <img src="%s" alt="%s公网安备" style="margin-bottom: -3px;">
+            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%s" target="_blank">%s公网安备 %s 号</a>`
+            .Site.Params.beian.icpProvince .Site.Params.beian.icp 
+            $image.permalink          .Site.Params.beian.icpProvince 
+            .Site.Params.beian.gongan .Site.Params.beian.gonganProvince .Site.Params.beian.gongan
+        -}}
+
         {{ T "footer.builtWith" (dict "Generator" $Generator) | safeHTML }} <br />
+        {{ $BeiAn | safeHTML }} <br />
         {{ T "footer.designedBy" (dict "Theme" $Theme "DesignedBy" $DesignedBy) | safeHTML }}
     </section>
 </footer>
