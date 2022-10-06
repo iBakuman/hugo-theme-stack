@@ -68,7 +68,7 @@
                     {{ $result = merge $result (dict "exists" false) }}
                 {{ end }}
             {{ end }}
-        <!-- 使用网络图片 -->
+        <!-- Using external images -->
         {{ else }} 
             <!-- External image -->
             {{ $result = merge $result (dict "permalink" (relURL $defaultImageSetting.src)) }}
