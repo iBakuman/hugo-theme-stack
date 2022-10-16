@@ -1,5 +1,7 @@
 html {
     font-size: 62.5%;
+    // 祛除移动端蓝色背景
+    -webkit-tap-highlight-color: transparent;
     overflow-y: scroll;
 }
 

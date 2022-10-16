@@ -323,12 +323,12 @@
                 font-weight: bold;
                 color: $code-info-color;
                 // background: darken($code-background-color, 8%);
-                background-color: var(--pre-background-color);
+                // background-color: var(--pre-background-color);
 
-                [data-scheme="dark"] & {
-                    color: $code-info-color-dark;
-                    background-color: var(--pre-background-color);
-                }
+                // [data-scheme="dark"] & {
+                //     color: $code-info-color-dark;
+                //     background-color: var(--pre-background-color);
+                // }
 
                 &:hover {
                     cursor: pointer;
@@ -372,7 +372,7 @@
                 display: block;
                 background-color: darken($code-background-color, 10%);
 
-                [theme="dark"] & {
+                [data-scheme="dark"] & {
                     background-color: darken($code-background-color-dark, 5%);
                 }
             }
@@ -381,7 +381,7 @@
             .lnt {
                 color: $global-font-secondary-color;
 
-                [theme="dark"] & {
+                [data-scheme="dark"] & {
                     color: $global-font-secondary-color-dark;
                 }
             }
@@ -403,7 +403,7 @@
                     cursor: pointer;
                     color: $global-link-hover-color;
 
-                    [theme="dark"] & {
+                    [data-scheme="dark"] & {
                         color: $global-link-hover-color-dark;
                     }
                 }
@@ -419,9 +419,9 @@
                 .code-header {
                     // background: darken($code-background-color, 3%);
 
-                    [data-scheme="dark"] & {
+                    // [data-scheme="dark"] & {
                         // background: darken($code-background-color-dark, 3%);
-                    }
+                    // }
                 }
 
                 .table-wrapper {
@@ -443,11 +443,11 @@
             }
         }
 
-        &:hover {
-            .copyCodeButton {
-                opacity: 1;
-            }
-        }
+        // &:hover {
+        //     .copyCodeButton {
+        //         opacity: 1;
+        //     }
+        // }
         // keep Codeblocks LTR
         [dir="rtl"] & {
             direction: ltr;
@@ -460,21 +460,21 @@
         }
     }
 
-    .copyCodeButton {
-        position: absolute;
-        top: calc(var(--card-padding));
-        right: calc(var(--card-padding));
-        background: var(--card-background);
-        border: none;
-        box-shadow: var(--shadow-l2);
-        border-radius: var(--tag-border-radius);
-        padding: 8px 16px;
-        color: var(--card-text-color-main);
-        cursor: pointer;
-        font-size: 14px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
+    // .copyCodeButton {
+    //     position: absolute;
+    //     top: calc(var(--card-padding));
+    //     right: calc(var(--card-padding));
+    //     background: var(--card-background);
+    //     border: none;
+    //     box-shadow: var(--shadow-l2);
+    //     border-radius: var(--tag-border-radius);
+    //     padding: 8px 16px;
+    //     color: var(--card-text-color-main);
+    //     cursor: pointer;
+    //     font-size: 14px;
+    //     opacity: 0;
+    //     transition: opacity 0.3s ease;
+    // }
 
     .table-wrapper {
         padding: 0 var(--card-padding);
