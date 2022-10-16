@@ -300,8 +300,148 @@
 
     .highlight {
         background-color: var(--pre-background-color);
-        padding: var(--card-padding);
+        // TODO: 去掉代码块的 padding
+        // padding: var(--card-padding);
+
+        // TODO: 设置圆角
+        border-radius: 0.7rem;
+        border: 1rem solid var(--pre-background-color);
+
         position: relative;
+
+        > .chroma {
+            position: relative;
+
+            // TODO: 弹性布局
+            .code-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-sizing: border-box;
+                width: 100%;
+                font-family: var(--global-font-family);
+                font-weight: bold;
+                color: $code-info-color;
+                // background: darken($code-background-color, 8%);
+                background-color: var(--pre-background-color);
+
+                [data-scheme="dark"] & {
+                    color: $code-info-color-dark;
+                    background-color: var(--pre-background-color);
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                .code-title {
+                    width: 100%;
+                    padding: 0.4rem;
+                }
+
+                .code-title::after {
+                    padding-left: 0.2rem;
+                    content: "Code";
+                }
+
+                @each $type, $text in $code-type-list {
+                    &.#{$type} .code-title::after {
+                        content: $text;
+                    }
+                }
+            }
+
+            .lntd:first-child {
+                min-width: 1.6rem;
+                text-align: right;
+            }
+
+            .lntd:last-child {
+                width: 100%;
+
+                pre {
+                    @include max-content(min-width);
+                }
+            }
+
+            .ln {
+                padding-right: 0.75rem;
+            }
+
+            .hl {
+                display: block;
+                background-color: darken($code-background-color, 10%);
+
+                [theme="dark"] & {
+                    background-color: darken($code-background-color-dark, 5%);
+                }
+            }
+
+            .ln,
+            .lnt {
+                color: $global-font-secondary-color;
+
+                [theme="dark"] & {
+                    color: $global-font-secondary-color-dark;
+                }
+            }
+
+            .arrow {
+                padding: 0 0.2rem;
+                @include transition(transform 0.2s ease);
+            }
+
+            .ellipses {
+                padding: 0.4rem;
+            }
+
+            .copy {
+                display: none;
+                padding: 0.4rem;
+
+                &:hover {
+                    cursor: pointer;
+                    color: $global-link-hover-color;
+
+                    [theme="dark"] & {
+                        color: $global-link-hover-color-dark;
+                    }
+                }
+            }
+
+            .table-wrapper {
+                max-height: 0;
+                overflow-y: hidden;
+                @include details-transition-open;
+            }
+
+            &.open {
+                .code-header {
+                    // background: darken($code-background-color, 3%);
+
+                    [data-scheme="dark"] & {
+                        // background: darken($code-background-color-dark, 3%);
+                    }
+                }
+
+                .table-wrapper {
+                    max-height: 10000px;
+                    @include details-transition-close;
+                }
+
+                .arrow {
+                    @include transform(rotate(90deg));
+                }
+
+                .ellipses {
+                    display: none;
+                }
+
+                .copy {
+                    display: inline;
+                }
+            }
+        }
 
         &:hover {
             .copyCodeButton {
@@ -341,7 +481,6 @@
         overflow-x: auto;
         display: block;
     }
-
     table {
         width: 100%;
         border-collapse: collapse;
@@ -400,9 +539,10 @@
     }
 
     /// Negative margins
-    blockquote,
+    // blockquote,
     figure,
-    .highlight,
+    // TODO: 修改代码块的显示位置。
+    // .highlight,
     pre,
     .gallery,
     .video-wrapper,

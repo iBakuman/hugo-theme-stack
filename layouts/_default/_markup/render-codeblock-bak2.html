@@ -1,0 +1,49 @@
+{{- .Type -}}
+<hr>
+{{- .Attributes -}}
+<hr>
+{{- .Options -}}
+<hr>
+{{/*  {{- $codeblock := printf "```%s\n%s\n```" .Type .Inner -}}  */}}
+{{/*  {{- warnf "warn msg: %+v" $codeblock -}}  */}}
+{{/*  {{- $codeblock | .Page.RenderString -}}  */}}
+{{/*  {{ $codeblock | markdownify }}  */}}
+{{ $codeblock := transform.Highlight .Inner .Type  }}
+
+{{/*  {{ $result := replaceRE `<div class="chroma">([\s\S]*)</div>` "Hello" $codeblock  }}  */}}
+{{/* Same function as the commented code above */}}
+{{ $result := replaceRE `(?s:<div class="chroma">(.*)</div>)` 
+
+                        `
+                        <div class="chroma open">
+                          <div class="code-header language-bash">
+                            <span class="code-title">
+                                <i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                            </span>
+                            <span class="ellipses">
+                                <i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i>
+                            </span>
+                            <span class="copy" data-clipboard-text="hugo new site my_website cd my_website" title="Copy to clipboard">
+                                <i class="far fa-copy fa-fw" aria-hidden="true"></i>
+                            </span>
+                          </div>
+                          <div class="table-wrapper">
+                            $1
+                          </div>
+                        </div>`
+
+                        $codeblock  }}
+
+{{/*  {{- warnf "warn msg: %+v" $result -}}  */}}
+{{- $result | safeHTML -}}
+
+{{/*  {{- warnf "warn msg: %+v" validID.MatchString("adam[23]") -}}  */}}
+<hr>
+{{- .Ordinal -}}
+<hr>
+{{- .Page.Title -}}
+<hr>
+{{- .Position -}}
+
+
+

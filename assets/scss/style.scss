@@ -6,11 +6,13 @@
 *   @link: https://github.com/CaiJimmy/hugo-theme-stack
 */
 
+@import "_mixin/index.scss";
+
 @import "breakpoints.scss";
 @import "variables.scss";
 @import "grid.scss";
 
-@import "external/normalize.scss";
+@import "vendor/normalize.scss";
 
 @import "partials/menu.scss";
 @import "partials/article.scss";

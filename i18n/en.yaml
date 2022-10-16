@@ -16,6 +16,9 @@ list:
         one: Subsection
         other: Subsections
 
+copyToClipboard:
+    other: Copy to clipboard
+    
 article:
     back:
         other: Back
