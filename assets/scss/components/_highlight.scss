@@ -1,0 +1,158 @@
+.table-wrapper {
+    padding: 0 var(--card-padding);
+    overflow-x: auto;
+    display: block;
+}
+
+.highlight {
+    background-color: var(--pre-background-color);
+
+    // TODO: 设置圆角
+    border-radius: 0.7rem;
+    border: 1rem solid #282a36;
+
+    position: relative;
+
+    > .chroma {
+        position: relative;
+
+        // TODO: 弹性布局
+        .code-header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            box-sizing: border-box;
+            width: 100%;
+            font-family: var(--global-font-family);
+            font-weight: bold;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            .code-title {
+                width: 100%;
+                padding: 0.4rem;
+                text-align: right;
+                // margin-left: auto;
+            }
+
+            // 默认语言
+            &::before {
+                padding-left: 0.2rem;
+                content: "Code";
+            }
+
+            @each $type, $text in $code-type-list {
+                &.#{$type}::before {
+                    content: $text;
+                }
+            }
+        }
+
+        // 代码块的代码序号部分的部分 HTML 结构如下
+        //<td class="lntd">
+        //    <pre tabindex="0" class="chroma"><code>
+        //        <span class="lnt">1</span>
+        //        <span class="lnt">2</span>
+        //        <span class="lnt">3</span>
+        //        <span class="lnt">4</span>
+        //        <span class="lnt">5</span>
+        //        </code>
+        //    </pre>
+        //</td>
+
+        // 代码块序号列的样式
+        .lntd:first-child {
+            min-width: 1.6rem;
+            text-align: right;
+        }
+
+        // 代码块的样式
+        .lntd:last-child {
+            width: 100%;
+
+            pre {
+                @include max-content(min-width);
+            }
+        }
+
+        .ln {
+            padding-right: 0.75rem;
+        }
+
+        .hl {
+            display: block;
+            [data-scheme="dark"] & {
+            }
+        }
+
+        .ln,
+        .lnt {
+            [data-scheme="dark"] & {
+            }
+        }
+
+        // 展开代码块的箭头样式
+        .arrow {
+            padding: 0 0.2rem;
+            @include transition(transform 0.2s ease);
+        }
+
+        // 省略号
+        .ellipses {
+            padding: 0.4rem;
+        }
+
+        // 复制按钮
+        .copy {
+            display: none;
+            padding: 0.4rem;
+
+            &:hover {
+                cursor: pointer;
+                color: $copy-btn-hover-color;
+
+                [data-scheme="dark"] & {
+                    color: $copy-btn-color-dark;
+                }
+            }
+        }
+
+        .table-wrapper {
+            max-height: 0;
+            overflow-y: hidden;
+            @include details-transition-open;
+        }
+
+        // 代码块展开时的样式
+        &.open {
+            .table-wrapper {
+                max-height: 10000px;
+                @include details-transition-close;
+            }
+
+            .arrow {
+                @include transform(rotate(-90deg));
+            }
+
+            .ellipses {
+                display: none;
+            }
+
+            .copy {
+                display: inline;
+            }
+        }
+    }
+
+    [dir="rtl"] & {
+        direction: ltr;
+    }
+    pre {
+        margin: initial;
+        padding: 0;
+        margin: 0;
+        width: auto;
+    }
+}

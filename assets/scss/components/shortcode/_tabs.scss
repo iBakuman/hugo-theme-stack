@@ -1,0 +1,165 @@
+$max-tab-count: 5;
+
+.ibakuman-tabs {
+    transition: 0.3s box-shadow ease;
+    border-radius: var(--card-border-radius);
+    max-width: 100%;
+
+    // flex layout config
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+
+    position: relative;
+    list-style: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+    &:hover {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.23), 0 2px 4px rgba(0, 0, 0, 0.19);
+    }
+
+    // 默认 tab 的内容样式。
+    &__content {
+        background: $ibakuman-tabs-background;
+        padding: 1rem 2.5rem;
+        order: 999; // Move content blocks to the end
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+        opacity: 0;
+        left: 0;
+        transform: translateY(-3px);
+        border-radius: 0 0 var(--card-border-radius) var(--card-border-radius);
+
+        // dark mode
+        [data-scheme="dark"] & {
+            background: $ibakuman-tabs-background-dark;
+        }
+
+        .highlight {
+            border-radius: 0;
+            border: none;
+            margin: -1rem -2.5rem;
+            padding: 1rem 1rem;
+        }
+    }
+
+    // tabs 展开时的相关样式
+    &.open {
+        // 设置展开时当前被选中 tab 的内容的样式
+        .ibakuman-tabs__input {
+            @for $i from 1 through $max-tab-count {
+                &:checked:nth-of-type(#{$i}) + label + .ibakuman-tabs__content {
+                    opacity: 1;
+                    position: relative;
+                    transition: 0.5s opacity ease-in, 0.8s transform ease;
+                    top: 0;
+                    z-index: 100;
+                    transform: translateY(0);
+                    text-shadow: 0 0 0;
+                }
+            }
+
+            // 压展开状态下取消第一个 tab 左下角的圆角。
+            &:first-of-type + label {
+                border-bottom-left-radius: 0;
+            }
+        }
+
+        .arrow {
+            @include transform(rotate(-90deg));
+        }
+    }
+
+    &__input {
+        // 隐藏 radio 按钮
+        display: none;
+
+        // 收起状态时显示第一个 tab 左下角的圆角。
+        &:first-of-type + label {
+            border-bottom-left-radius: var(--card-border-radius);
+        }
+
+        // 当 tab > 1 时：去除第一个 tab 右边的圆角。
+        &:first-of-type:not(:last-of-type) + label {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        // 当 tab > 1 时：去除第一个和最后一个 tab 之外的所有 tab 的圆角去掉。
+        &:not(:first-of-type):not(:last-of-type) + label {
+            border-radius: 0;
+        }
+
+        // 当 tab > 1 时： 去掉最后一个 tab 左边的圆角。
+        &:last-of-type:not(:first-of-type) + label {
+            border-radius: 0;
+        }
+
+        // 当前被选中的 tab 的样式
+        &:checked + label {
+            background: $ibakuman-tabs-background;
+
+            [data-scheme="dark"] & {
+                background: $ibakuman-tabs-background-dark;
+            }
+
+            //box-shadow: 0 -1px 0 #fff inset;
+            cursor: default;
+
+            &:hover {
+                //box-shadow: 0 -1px 0 #fff inset;
+                //background-color: #fff;
+            }
+        }
+
+        // 默认 tab 标签样式
+        + label {
+            //box-shadow: 0 -1px 0 #eee inset;
+            border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            //color: #333;
+            //flex-grow: 1;
+            width: 100px;
+            text-align: center;
+            background-color: darken($card-background-dark, 5%);
+            user-select: none;
+            transition: 0.3s background-color ease, 0.3s box-shadow ease;
+            box-sizing: border-box;
+            padding: 1rem 0;
+
+            &:hover {
+                //background-color: #f9f9f9;
+                //box-shadow: 0 1px 0 #f4f4f4 inset;
+            }
+        }
+    }
+
+    // 复制按钮样式
+    > .btn-wrapper {
+        margin-left: auto;
+        margin-right: 1rem;
+        // 和上面代码的效果相同
+        //flex: 1;
+        //text-align: right;
+
+        display: flex;
+        justify-content: flex-end;
+        flex-grow: 1;
+
+        .toggle-open {
+            flex-grow: 1;
+            padding: .4rem;
+            width: 100%;
+            text-align: right;
+        }
+
+        .copy {
+            padding: .4rem;
+        }
+    }
+
+}

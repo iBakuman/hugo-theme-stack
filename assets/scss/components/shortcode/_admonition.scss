@@ -13,6 +13,12 @@
 
   .admonition-content {
     padding: .5rem 0;
+    p {
+      margin: 0;
+    }
+    p:not(:last-of-type) {
+      margin-bottom: .5rem;
+    }
   }
 
   i.icon {
@@ -68,5 +74,37 @@
 
   &:last-child {
     margin-bottom: .75rem;
+  }
+}
+
+.details {
+  .details-summary {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  i.details-icon {
+    @include transition(transform 0.2s ease);
+
+    [data-scheme=dark] & {
+    }
+  }
+
+  .details-content {
+    max-height: 0;
+    overflow-y: hidden;
+    @include details-transition-open;
+  }
+
+  &.open {
+    i.details-icon {
+      @include transform(rotate(90deg));
+    }
+
+    .details-content {
+      max-height: 10000px;
+      @include details-transition-close;
+    }
   }
 }

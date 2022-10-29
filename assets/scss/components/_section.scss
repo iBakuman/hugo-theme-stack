@@ -6,42 +6,42 @@
     display: flex;
     align-items: center;
     gap: 20px;
-
     --separation: 15px;
 
-    .section-term {
+    // 当前 list page 的数据条目的样式
+    &__count {
+        color: var(--card-text-color-tertiary);
+        font-size: 1.4rem;
+        margin: 0;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    &__term {
         font-size: 2.2rem;
         margin: 0;
         color: var(--card-text-color-main);
     }
 
-    .section-description {
-        font-weight: normal;
-        color: var(--card-text-color-secondary);
-        font-size: 1.6rem;
-        margin: 0;
-    }
-
-    .section-details {
+    &__details {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
         gap: 8px;
     }
 
-    .section-image {
+    &__description {
+        font-weight: normal;
+        color: var(--card-text-color-secondary);
+        font-size: 1.6rem;
+        margin: 0;
+    }
+
+    &__image {
         img {
             width: 60px;
             height: 60px;
         }
-    }
-
-    .section-count {
-        color: var(--card-text-color-tertiary);
-        font-size: 1.4rem;
-        margin: 0;
-        font-weight: bold;
-        text-transform: uppercase;
     }
 }
 

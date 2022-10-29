@@ -1,0 +1,28 @@
+.widget {
+    display: flex;
+    flex-direction: column;
+
+    &-icon {
+        svg {
+            width: 32px;
+            height: 32px;
+            stroke-width: 1.6;
+            color: var(--body-text-color);
+        }
+    }
+}
+
+// Widget Title 和 Related Content 的 Title 的样式
+.section-title {
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--body-text-color);
+
+    a {
+        color: var(--body-text-color);
+    }
+}

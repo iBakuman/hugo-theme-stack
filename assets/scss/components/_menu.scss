@@ -1,0 +1,128 @@
+#toggle-menu {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    cursor: pointer;
+
+    [dir="rtl"] & {
+        left: 0;
+        right: auto;
+    }
+
+    @include respond(md) {
+        display: none;
+    }
+
+    outline: none;
+
+    &.is-active {
+        .hamburger-inner,
+        .hamburger-inner::before,
+        .hamburger-inner::after {
+            background-color: var(--accent-color);
+        }
+    }
+}
+
+/* Menu style */
+.menu {
+    padding-left: 0;
+    list-style: none;
+    flex-direction: column;
+    overflow-y: auto;
+    flex-grow: 1;
+    font-size: 1.4rem;
+    background-color: var(--card-background);
+
+    box-shadow: var(--shadow-l1);
+    display: none;
+    margin: 0 calc(var(--container-padding) * -1);
+
+    padding: 30px 30px;
+    @include respond(xl) {
+        padding: 15px 0;
+    }
+
+    &,
+    .menu-bottom-section {
+        gap: 30px;
+        @include respond(xl) {
+            gap: 25px;
+        }
+    }
+
+    &.show {
+        display: flex;
+    }
+
+    @include respond(md) {
+        align-items: flex-end;
+        display: flex;
+        background-color: transparent;
+        padding: 0;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    li {
+        position: relative;
+        vertical-align: middle;
+        padding: 0;
+
+        @include respond(md) {
+            width: 100%;
+        }
+
+        svg {
+            stroke-width: 1.33;
+
+            width: 20px;
+            height: 20px;
+        }
+
+        a {
+            height: 100%;
+            display: inline-flex;
+            align-items: center;
+            color: var(--body-text-color);
+            gap: var(--menu-icon-separation);
+        }
+
+        span {
+            flex: 1;
+        }
+
+        &.current {
+            a {
+                color: var(--accent-color);
+                font-weight: bold;
+            }
+        }
+    }
+
+    .menu-bottom-section {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.social-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--body-text-color);
+        stroke-width: 1.33;
+    }
+}
