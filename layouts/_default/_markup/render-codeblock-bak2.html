@@ -4,10 +4,10 @@
 <hr>
 {{- .Options -}}
 <hr>
-{{/*  {{- $codeblock := printf "```%s\n%s\n```" .Type .Inner -}}  */}}
-{{/*  {{- warnf "warn msg: %+v" $codeblock -}}  */}}
-{{/*  {{- $codeblock | .Page.RenderString -}}  */}}
-{{/*  {{ $codeblock | markdownify }}  */}}
+{{- /*  {{- $codeblock := printf "```%s\n%s\n```" .Type .Inner -}}  */ -}}
+{{- /*  {{- warnf "warn msg: %+v" $codeblock -}}  */ -}}
+{{- /*  {{- $codeblock | .Page.RenderString -}}  */ -}}
+{{- /*  {{ $codeblock | markdownify }}  */ -}}
 {{ $codeblock := transform.Highlight .Inner .Type  }}
 
 {{/*  {{ $result := replaceRE `<div class="chroma">([\s\S]*)</div>` "Hello" $codeblock  }}  */}}

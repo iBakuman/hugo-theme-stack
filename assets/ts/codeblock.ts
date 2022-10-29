@@ -89,21 +89,21 @@ declare global {
 }
 
 function initHighlight() {
-  Util.forEach(document.querySelectorAll('.highlight > pre.chroma'), preChroma => {
-    const chroma = document.createElement('div');
-    chroma.className = preChroma.className;
-    const table = document.createElement('table');
-    chroma.appendChild(table);
-    const tbody = document.createElement('tbody');
-    table.appendChild(tbody);
-    const tr = document.createElement('tr');
-    tbody.appendChild(tr);
-    const td = document.createElement('td');
-    tr.appendChild(td);
-    preChroma.parentElement.replaceChild(chroma, preChroma);
-    td.appendChild(preChroma);
-  });
-  Util.forEach(document.querySelectorAll('.highlight > .chroma'), chroma => {
+  // Util.forEach(document.querySelectorAll('.highlight > pre.chroma'), preChroma => {
+  //   const chroma = document.createElement('div');
+  //   chroma.className = preChroma.className;
+  //   const table = document.createElement('table');
+  //   chroma.appendChild(table);
+  //   const tbody = document.createElement('tbody');
+  //   table.appendChild(tbody);
+  //   const tr = document.createElement('tr');
+  //   tbody.appendChild(tr);
+  //   const td = document.createElement('td');
+  //   tr.appendChild(td);
+  //   preChroma.parentElement.replaceChild(chroma, preChroma);
+  //   td.appendChild(preChroma);
+  // });
+  Util.forEach(document.querySelectorAll('.article-content > .highlight > .chroma'), chroma => {
     const codeElements = chroma.querySelectorAll('pre.chroma > code');
     if (codeElements.length) {
 
@@ -113,7 +113,7 @@ function initHighlight() {
       header.className = 'code-header ' + codeEl.className.toLowerCase();
       const title = document.createElement('span');
       title.classList.add('code-title');
-      title.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i>');
+      title.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-left fa-fw" aria-hidden="true"></i>');
       title.addEventListener('click', () => {
         chroma.classList.toggle('open');
       }, false);
@@ -151,7 +151,7 @@ function initHighlight() {
 }
 
 function initTable() {
-  Util.forEach(document.querySelectorAll('.article-content table'), table => {
+  Util.forEach(document.querySelectorAll('.article-content > .highlight table'), table => {
     const wrapper = document.createElement('div');
     wrapper.className = 'table-wrapper';
     table.parentElement.replaceChild(wrapper, table);

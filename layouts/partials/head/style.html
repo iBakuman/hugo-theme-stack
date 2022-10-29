@@ -2,9 +2,10 @@
 {{- $fingerprint := .Scratch.Get "fingerprint" -}}
 
 {{- /* style.css */ -}}
-{{ $sass := resources.Get "scss/style.scss" }}
-{{ $style := $sass | resources.ToCSS | minify | resources.Fingerprint "sha256" }}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+{{- $options := dict "Source" "scss/style.scss" "Fingerprint" $fingerprint -}}
+{{- $toCSS := dict "targetPath" "css/style.min.css" "enableSourceMap" (not hugo.IsProduction) -}}
+{{- $options = dict "Context" . "ToCSS" $toCSS | merge $options -}}
+{{- partial "helper/style.html" $options -}}
 
 {{- /* Font Awesome */ -}}
 {{- $source := $cdn.fontawesomeFreeCSS | default "lib/fontawesome-free/all.min.css" -}}

@@ -10,7 +10,8 @@ import { getColor } from 'ts/color';
 import menu from 'ts/menu';
 import createElement from 'ts/createElement';
 import StackColorScheme from 'ts/colorScheme';
-import { initAdmonition } from "./admonition";
+import { initAdmonition } from "ts/shortcode/admonition";
+import { initTabs } from "ts/shortcode/tabs";
 import { initHighlight, initTable } from 'ts/codeblock';
 import { setupScrollspy } from 'ts/scrollspy';
 import { setupSmoothAnchors } from "ts/smoothAnchors";
@@ -34,12 +35,14 @@ let Stack = {
          */
         const articleTile = document.querySelector('.article-list--tile');
         if (articleTile) {
+            // @ts-ignore
             let observer = new IntersectionObserver(async (entries, observer) => {
                 entries.forEach(entry => {
                     if (!entry.isIntersecting) return;
                     observer.unobserve(entry.target);
 
                     const articles = entry.target.querySelectorAll('article.has-image');
+                    // @ts-ignore
                     articles.forEach(async articles => {
                         const image = articles.querySelector('img'),
                             imageURL = image.src,
@@ -102,6 +105,9 @@ let Stack = {
 
         // admonition
         initAdmonition();
+
+        // tabs
+        initTabs();
     }
 }
 

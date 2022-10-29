@@ -1,4 +1,4 @@
-import { Util } from "./util";
+import { Util } from "../util";
 
 export function initAdmonition() {
   Util.forEach(document.getElementsByClassName('details'), $details => {

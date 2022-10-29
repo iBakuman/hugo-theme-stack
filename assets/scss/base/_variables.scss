@@ -50,7 +50,8 @@ $ibakuman-tabs-background: #424242 !default;
     --zh-font-family: "PingFang SC", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei";
 
     --base-font-family: "Lato", var(--sys-font-family), var(--zh-font-family), sans-serif;
-    --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    // TODO: 修改代码字体
+    --code-font-family: "CodeNewRoman NFM", Menlo, Monaco, Consolas, "Courier New", monospace, "微软雅黑";
 }
 
 /*
@@ -78,7 +79,6 @@ $ibakuman-tabs-background: #424242 !default;
     }
 
     --small-card-padding: 25px 20px;
-
     @include respond(md) {
         --small-card-padding: 25px;
     }
@@ -155,13 +155,13 @@ $ibakuman-tabs-background: #424242 !default;
 [data-scheme="light"] {
     --pre-text-color: #272822;
     --pre-background-color: #fafafa;
-    @import "partials/highlight/light.scss";
+    @import "../theme/monokailight";
 }
 
 [data-scheme="dark"] {
     --pre-text-color: #f8f8f2;
     --pre-background-color: #272822;
-    @import "partials/highlight/dark.scss";
+    @import "../theme/dracula";
 }
 
 :root {

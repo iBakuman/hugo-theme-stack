@@ -24,10 +24,11 @@
                 height: 150px;
                 object-fit: cover;
 
+                // 媒体查询：当屏幕尺寸为 middle size 时设置图片高度为 200px
                 @include respond(md) {
                     height: 200px;
                 }
-
+                // 媒体查询：当屏幕尺寸为 extra large size 时设置图片高度为 200px
                 @include respond(xl) {
                     height: 250px;
                 }
@@ -265,7 +266,3 @@
         }
     }
 }
-
-@import "single/admonition";
-@import "single/details";
-@import "../shortcode/_tabs";

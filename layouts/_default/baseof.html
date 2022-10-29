@@ -16,6 +16,7 @@
             {{- end -}}
         {{- end -}}
         <div class="container main-container flex on-phone--column {{ if $hasWidget }}extended{{ else }}compact{{ end }}">
+            {{- /* 左侧边栏一直存在 */ -}}
             {{- block "left-sidebar" . -}}
                 {{ partial "sidebar/left.html" . }}
             {{- end -}}

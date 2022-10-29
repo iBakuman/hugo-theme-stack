@@ -1,27 +1,46 @@
-{{ define "body-class" }}
-    article-page
-    {{/* 
+{{ define "body-class" -}}
+    {{/* article-page 是 CSS 类的名字 */ -}}
+    {{- printf "%s" "article-page" -}}
+    {{- /*
         Enable the right sidebar if
             - Widget different from 'TOC' is enabled
             - TOC is enabled and not empty
-    */}}
+    */ -}}
+    {{- /* 是否有除 TOC Widget 以外的其他 Widget */ -}}
     {{- $HasWidgetNotTOC := false -}}
-    {{- $TOCWidgetEnabled := false -}}
+    {{- $TOCWidgetEnabled := false -}} {{- /* 是否有 TOC Widget */ -}}
     {{- range .Site.Params.widgets.page -}}
         {{- if ne .type "toc" -}}
-            {{ $HasWidgetNotTOC = true -}}
+            {{- $HasWidgetNotTOC = true -}}
         {{- else -}}
-            {{ $TOCWidgetEnabled = true -}}
+            {{- $TOCWidgetEnabled = true -}}
         {{- end -}}
     {{- end -}}
 
+    {{- /* 是否在 front master 中手动关闭目录显示 */ -}}
     {{- $TOCManuallyDisabled := eq .Params.toc false -}}
+
+    {{- /* 如果没有在 front master 中添加 toc:false 且在 config.yaml 中开启了目录显示则该文章有 TOC widget */ -}}
     {{- $TOCEnabled := and (not $TOCManuallyDisabled) $TOCWidgetEnabled -}}
+
+    {{- /* toc 的长度是否大于100，注意：即使文章没有标题也会生成 <nav id="TableOfContents"></nav> ,故要检查长度。 */ -}}
     {{- $hasTOC := ge (len .TableOfContents) 100 -}}
-    {{- .Scratch.Set "TOCEnabled" (and $TOCEnabled $hasTOC) -}}
+    {{- /*
+        .TableOfContents 里存储的内容示例:
+        <nav id="TableOfContents">
+            <ol>
+                <li><a href="#1-overview">1 Overview</a></li>
+                <li><a href="#2-global-context">2 Global context</a></li>
+            </ol>
+        </nav>
+    */ -}}
     
+    {{- .Scratch.Set "TOCEnabled" (and $TOCEnabled $hasTOC) -}}
+    {{- /* 如果开启了 TOC Widget 且文章有 toc，则显示 TOC Widget */ -}}
+
     {{- .Scratch.Set "hasWidget" (or $HasWidgetNotTOC (and $TOCEnabled $hasTOC)) -}}
-{{ end }}
+    {{- /* 该文章是否有 Widget 要显示 */ -}}
+{{- end }}
 
 {{ define "main" }}
     {{ partial "article/article.html" . }}
@@ -31,7 +50,7 @@
     {{ end }}
 
     {{ partial "article/components/related-content" . }}
-     
+
     {{ if not (eq .Params.comments false) }}
         {{ partial "comments/include" . }}
     {{ end }}

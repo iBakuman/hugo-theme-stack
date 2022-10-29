@@ -1,0 +1,26 @@
+{{/* https://github.com/alex-shpak/hugo-book/blob/master/layouts/shortcodes/tabs.html */}}
+{{ if .Inner }}{{ end }}
+{{ $id := .Get 0 }}
+{{ $group := printf "tabs-%s" $id }}
+
+<div class="ibakuman-tabs">
+  {{- range $index, $tab := .Scratch.Get $group -}}
+    <input type="radio" class="ibakuman-tabs__input" name="{{ $group }}" id="{{ printf "%s-%d" $group $index }}" {{ if not $index }}checked{{ end }} />
+    <label for="{{ printf "%s-%d" $group $index }}">
+      {{- $tab.Name -}}
+    </label>
+    <div class="ibakuman-tabs__content">
+      {{- .Content | $.Page.RenderString -}}
+    </div>
+  {{- end -}}
+
+  <div class="btn-wrapper">
+    <span class="toggle-open">
+      <i class="arrow fas fa-chevron-left fa-fw" aria-hidden="true"></i>
+    </span>
+    <span class="copy">
+      <i class="far fa-copy fa-fw" aria-hidden="true"></i>
+    </span>
+  </div>
+
+</div>
