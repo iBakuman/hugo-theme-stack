@@ -1,1 +1,10 @@
 /* Place your custom SCSS in HUGO_SITE_FOLDER/assets/scss/custom.scss */
+span.ibakuman-inline-note {
+	background-color: #272822;
+	border-radius: 4px;
+	color: yellow;
+}
+
+span.ibakuman-inline-translation {
+	color: cyan;
+}

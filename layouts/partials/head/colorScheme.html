@@ -1,6 +1,6 @@
 {{- $defaultColorScheme := default "auto" .Site.Params.colorScheme.default -}}
 {{- if not (default false .Site.Params.colorScheme.toggle) -}}
-    {{/* If toggle is disabled, force default scheme */}}
+    {{- /* If toggle is disabled, force default scheme */ -}}
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -8,7 +8,7 @@
         })();
     </script>
 {{- else -}}
-    {{/* Otherwise set to default scheme only if no preference is set by user */}}
+    {{- /* Otherwise set to default scheme only if no preference is set by user */ -}}
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';

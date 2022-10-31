@@ -8,7 +8,7 @@
     <body class="{{ block `body-class` . }}{{ end }}">
         {{- partial "head/colorScheme" . -}}
 
-        {{/* The container is wider when there's any activated widget */}}
+        {{- /* The container is wider when there's any activated widget */ -}}
         {{- $hasWidget := false -}}
         {{- range .Site.Params.widgets -}}
             {{- if gt (len .) 0 -}}

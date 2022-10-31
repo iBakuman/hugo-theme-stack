@@ -20,7 +20,7 @@
 
 {{- $code := $params.code | default dict -}}
 {{- $config = cond (ne $code.maxShownLines nil) $code.maxShownLines 10 | dict "maxShownLines" | dict "code" | merge $config -}}
-{{/*  {{- $config = T "copyToClipboard" | dict "copyTitle" | dict "code" | merge $config -}}  */}}
+{{- /* {{- $config = T "copyToClipboard" | dict "copyTitle" | dict "code" | merge $config -}} */ -}}
 
 {{- /* clipboard.js */ -}}
 {{- if ne $code.copy false -}}
@@ -30,15 +30,15 @@
 {{- end -}}
 
 {{- /* Config script */ -}}
+{{- /* If the theme configuration is set on window.config, there is a conflict with ribbon.min.js */ -}}
+{{- /* https://github.com/hustcc/ribbon.js  */ -}}
+{{- /* {{- $config | jsonify | printf "window.config=%s;" | dict "Content" | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}} */ -}}
 {{- $config | jsonify | printf "window.themeConfig=%s;" | dict "Content" | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
-{{/*  If the theme configuration is set on window.config, there is a conflict with ribbon.min.js */}}
-{{/*  https://github.com/hustcc/ribbon.js  */}}
-{{/*  {{- $config | jsonify | printf "window.config=%s;" | dict "Content" | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}  */}}
 
-{{/*  copy button text  */}}
+{{- /* copy button text */ -}}
 
 {{- /* Theme script */ -}}
-{{/*  {{- dict "Source" "js/theme.js" "Minify" true "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+{{- /* {{- dict "Source" "js/theme.js" "Minify" true "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
 
 {{- with (.Scratch.Get "this").scriptArr -}}
     {{- delimit . "\n" | dict "Content" | dict "Scratch" $.Scratch "Data" | partial "scratch/script.html" -}}
@@ -46,10 +46,8 @@
 
 {{- range (.Scratch.Get "this").style -}}
     {{- partial "plugin/style.html" . -}}
-{{- end -}}  */}}
+{{- end -}} */ -}}
 
 {{- range (.Scratch.Get "this").script -}}
     {{- partial "helper/script.html" . -}}
 {{- end -}}
-
-{{/*  {{- partial "plugin/analytics.html" . -}}  */}}

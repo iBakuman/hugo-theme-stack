@@ -1,4 +1,4 @@
-{{/* https://github.com/alex-shpak/hugo-book/blob/master/layouts/shortcodes/tabs.html */}}
+{{- /* https://github.com/alex-shpak/hugo-book/blob/master/layouts/shortcodes/tabs.html */ -}}
 {{ if .Inner }}{{ end }}
 {{ $id := string (.Page.Scratch.Get "tabs-id") }}
 {{ .Page.Scratch.Set "tabs-id" (add (int $id) 1) }}

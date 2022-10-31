@@ -1,4 +1,4 @@
-{{/* https://github.com/alex-shpak/hugo-book/blob/master/layouts/shortcodes/tab.html */}}
+{{- /* https://github.com/alex-shpak/hugo-book/blob/master/layouts/shortcodes/tab.html */ -}}
 {{ if .Parent }}
   {{ $name := .Get 0 }}
   {{ $group := printf "tabs-%s" (string (.Parent.Page.Scratch.Get "tabs-id")) }}
