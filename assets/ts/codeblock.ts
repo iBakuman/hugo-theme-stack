@@ -135,7 +135,7 @@ function initHighlight() {
 
       // 获得纯文本代码
       const code = codeEl.innerText;
-      if (window.themeConfig.code.maxShownLines < 0 || code.split('\n').length < window.themeConfig.code.maxShownLines + 2) chroma.classList.add('open');
+      if (window.themeConfig.folding.maxShownLines < 0 || code.split('\n').length < window.themeConfig.folding.maxShownLines + 2) chroma.classList.add('open');
       if (window.themeConfig.code.copyTitle) {
         copy.setAttribute('data-clipboard-text', code);
         copy.title = window.themeConfig.code.copyTitle;

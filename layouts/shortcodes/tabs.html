@@ -4,7 +4,7 @@
 {{ .Page.Scratch.Set "tabs-id" (add (int $id) 1) }}
 {{ $group := printf "tabs-%s" $id }}
 
-<div class="ibakuman-tabs open" id="{{ $group }}">
+<div class="ibakuman-tabs" id="{{ $group }}">
   {{- range $index, $tab := .Scratch.Get $group -}}
     <input type="radio" class="ibakuman-tabs__input" name="{{ $group }}" id="{{ printf "%s-%d" $group $index }}" {{ if not $index }}checked{{ end }} />
     <label for="{{ printf "%s-%d" $group $index }}">

@@ -7,6 +7,28 @@ export function initTabs() {
             tabs.classList.toggle('open');
         }, false)
 
+        // 只考虑第一个 tab 的长度。
+        const contentEl = tabs.querySelector('.ibakuman-tabs__content');
+        if (contentEl) {
+            // 不能直接向下面这样获取 content，因为如果第一个 tab 包含的是代码块，则行号部分也会计入。
+            // const content = contentEl.innerText;
+
+            const codeEls = contentEl.querySelectorAll('pre.chroma > code');
+            let content = ''
+            if (codeEls.length) {
+                // 此时第一个 tab 包含的是代码块，取 codeEls 的最后一个元素，该元素的 innerText 保存的是代码。
+                content = codeEls[codeEls.length - 1].innerText;
+            } else {
+                content = contentEl.innerText;
+            }
+
+            if (window.themeConfig.folding.maxShownLines < 0
+                || content.split('\n').length < window.themeConfig.folding.maxShownLines + 2) {
+                // 内容行数小于在 config.yaml 中配置的可折叠区域的最大显示行数时，展开内容（默认是收起的）。
+                tabs.classList.add('open');
+            }
+        }
+
         // 当前 tabs 的 id
         const id = tabs.id
         // 代码复制按钮
