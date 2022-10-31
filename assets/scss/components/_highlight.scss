@@ -1,5 +1,4 @@
 .table-wrapper {
-    padding: 0 var(--card-padding);
     overflow-x: auto;
     display: block;
 }
@@ -8,44 +7,55 @@
     background-color: var(--pre-background-color);
 
     // TODO: 设置圆角
-    border-radius: 0.7rem;
-    border: 1rem solid #282a36;
-
+    border-radius: $ibakuman-tabs-radius;
+    overflow: hidden;
     position: relative;
 
     > .chroma {
-        position: relative;
 
-        // TODO: 弹性布局
-        .code-header {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            box-sizing: border-box;
-            width: 100%;
-            font-family: var(--global-font-family);
-            font-weight: bold;
+        padding: 1rem 0;
 
-            &:hover {
-                cursor: pointer;
-            }
+        .table-wrapper {
+            max-height: 0;
+            overflow-y: hidden;
+            @include details-transition-open;
+        }
 
-            .code-title {
-                width: 100%;
-                padding: 0.4rem;
-                text-align: right;
-                // margin-left: auto;
-            }
-
+        .ibakuman-toolbar {
             // 默认语言
             &::before {
-                padding-left: 0.2rem;
+                padding-left: 1rem;
                 content: "Code";
+                font-weight: bold;
             }
 
             @each $type, $text in $code-type-list {
                 &.#{$type}::before {
                     content: $text;
+                }
+            }
+        }
+
+        // 展开时的样式
+        &.open {
+            .table-wrapper {
+                max-height: 10000px;
+                @include details-transition-close;
+            }
+
+            .ibakuman-toolbar {
+                &__toggle-open {
+                    .arrow {
+                        @include transform(rotate(-90deg));
+                    }
+                }
+
+                &__ellipses {
+                    display: none;
+                }
+
+                &__copy {
+                    display: inline;
                 }
             }
         }
@@ -92,65 +102,12 @@
             [data-scheme="dark"] & {
             }
         }
-
-        // 展开代码块的箭头样式
-        .arrow {
-            padding: 0 0.2rem;
-            @include transition(transform 0.2s ease);
-        }
-
-        // 省略号
-        .ellipses {
-            padding: 0.4rem;
-        }
-
-        // 复制按钮
-        .copy {
-            display: none;
-            padding: 0.4rem;
-
-            &:hover {
-                cursor: pointer;
-                color: $copy-btn-hover-color;
-
-                [data-scheme="dark"] & {
-                    color: $copy-btn-color-dark;
-                }
-            }
-        }
-
-        .table-wrapper {
-            max-height: 0;
-            overflow-y: hidden;
-            @include details-transition-open;
-        }
-
-        // 代码块展开时的样式
-        &.open {
-            .table-wrapper {
-                max-height: 10000px;
-                @include details-transition-close;
-            }
-
-            .arrow {
-                @include transform(rotate(-90deg));
-            }
-
-            .ellipses {
-                display: none;
-            }
-
-            .copy {
-                display: inline;
-            }
-        }
     }
 
     [dir="rtl"] & {
         direction: ltr;
     }
     pre {
-        margin: initial;
         padding: 0;
         margin: 0;
         width: auto;

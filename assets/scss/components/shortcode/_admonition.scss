@@ -99,7 +99,7 @@
 
   &.open {
     i.details-icon {
-      @include transform(rotate(90deg));
+      @include transform(rotate(-90deg));
     }
 
     .details-content {

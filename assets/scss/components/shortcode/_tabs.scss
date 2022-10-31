@@ -1,9 +1,13 @@
-$max-tab-count: 5;
-
 .ibakuman-tabs {
     transition: 0.3s box-shadow ease;
-    border-radius: var(--card-border-radius);
+    border-radius: $ibakuman-tabs-radius;
     max-width: 100%;
+    background: $ibakuman-tabs-background;
+    margin: 2.5rem 0;
+    // dark mode
+    [data-scheme="dark"] & {
+        background: $ibakuman-tabs-background-dark;
+    }
 
     // flex layout config
     display: flex;
@@ -13,15 +17,15 @@ $max-tab-count: 5;
 
     position: relative;
     list-style: none;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
-    &:hover {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.23), 0 2px 4px rgba(0, 0, 0, 0.19);
-    }
 
     // 默认 tab 的内容样式。
     &__content {
         background: $ibakuman-tabs-background;
+        // dark mode
+        [data-scheme="dark"] & {
+            background: $ibakuman-tabs-background-dark;
+        }
+
         padding: 1rem 2.5rem;
         order: 999; // Move content blocks to the end
         position: absolute;
@@ -30,18 +34,12 @@ $max-tab-count: 5;
         opacity: 0;
         left: 0;
         transform: translateY(-3px);
-        border-radius: 0 0 var(--card-border-radius) var(--card-border-radius);
-
-        // dark mode
-        [data-scheme="dark"] & {
-            background: $ibakuman-tabs-background-dark;
-        }
-
+        border-radius: 0 0 $ibakuman-tabs-radius $ibakuman-tabs-radius;
         .highlight {
-            border-radius: 0;
-            border: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            // 清除 ibakuman-tabs__content 的 padding
             margin: -1rem -2.5rem;
-            padding: 1rem 1rem;
         }
     }
 
@@ -49,7 +47,7 @@ $max-tab-count: 5;
     &.open {
         // 设置展开时当前被选中 tab 的内容的样式
         .ibakuman-tabs__input {
-            @for $i from 1 through $max-tab-count {
+            @for $i from 1 through $ibakuman-tabs-max-tab-count {
                 &:checked:nth-of-type(#{$i}) + label + .ibakuman-tabs__content {
                     opacity: 1;
                     position: relative;
@@ -67,8 +65,20 @@ $max-tab-count: 5;
             }
         }
 
-        .arrow {
-            @include transform(rotate(-90deg));
+        .ibakuman-toolbar {
+            &__toggle-open {
+                .arrow {
+                    @include transform(rotate(-90deg));
+                }
+            }
+
+            &__ellipses {
+                display: none;
+            }
+
+            &__copy {
+                display: inline;
+            }
         }
     }
 
@@ -78,7 +88,7 @@ $max-tab-count: 5;
 
         // 收起状态时显示第一个 tab 左下角的圆角。
         &:first-of-type + label {
-            border-bottom-left-radius: var(--card-border-radius);
+            border-bottom-left-radius: $ibakuman-tabs-radius;
         }
 
         // 当 tab > 1 时：去除第一个 tab 右边的圆角。
@@ -105,61 +115,33 @@ $max-tab-count: 5;
                 background: $ibakuman-tabs-background-dark;
             }
 
-            //box-shadow: 0 -1px 0 #fff inset;
             cursor: default;
-
-            &:hover {
-                //box-shadow: 0 -1px 0 #fff inset;
-                //background-color: #fff;
+            &:last-of-type {
+                border-right: 2px solid darken($card-background-dark, 5%);
             }
         }
 
         // 默认 tab 标签样式
         + label {
-            //box-shadow: 0 -1px 0 #eee inset;
-            border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
+            border-radius: $ibakuman-tabs-radius $ibakuman-tabs-radius 0 0;
             cursor: pointer;
             display: block;
             text-decoration: none;
-            //color: #333;
-            //flex-grow: 1;
+            font-weight: bold;
             width: 100px;
             text-align: center;
             background-color: darken($card-background-dark, 5%);
             user-select: none;
             transition: 0.3s background-color ease, 0.3s box-shadow ease;
-            box-sizing: border-box;
             padding: 1rem 0;
 
             &:hover {
-                //background-color: #f9f9f9;
-                //box-shadow: 0 1px 0 #f4f4f4 inset;
+                // background-color: #f9f9f9;
+                box-shadow: 0 0 4px $ibakuman-tabs-background inset;
+                [data-scheme="dark"] & {
+                    box-shadow: 0 0 4px 0 $ibakuman-tabs-background-dark inset;
+                }
             }
         }
     }
-
-    // 复制按钮样式
-    > .btn-wrapper {
-        margin-left: auto;
-        margin-right: 1rem;
-        // 和上面代码的效果相同
-        //flex: 1;
-        //text-align: right;
-
-        display: flex;
-        justify-content: flex-end;
-        flex-grow: 1;
-
-        .toggle-open {
-            flex-grow: 1;
-            padding: .4rem;
-            width: 100%;
-            text-align: right;
-        }
-
-        .copy {
-            padding: .4rem;
-        }
-    }
-
 }

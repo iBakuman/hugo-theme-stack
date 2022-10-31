@@ -1,0 +1,43 @@
+.ibakuman-toolbar {
+    margin-left: auto;
+    margin-right: 1rem;
+    // 和上面代码的效果相同
+    //flex: 1;
+    //text-align: right;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &__toggle-open {
+        flex-grow: 1;
+        text-align: right;
+        padding-right: .8rem;
+        .arrow {
+            @include transition(transform 0.2s ease);
+        }
+    }
+
+    &__ellipses {
+        padding-right: .4rem;
+    }
+
+    &__copy {
+        display: none;
+        padding-right: .4rem;
+
+        &:hover {
+            cursor: pointer;
+            color: $copy-btn-hover-color;
+
+            [data-scheme="dark"] & {
+                color: $copy-btn-hover-color-dark;
+            }
+        }
+    }
+}

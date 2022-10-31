@@ -7,8 +7,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 $body-background-color: #303030 !default;
 $body-background-color-dark: #303030 !default;
 $card-background-dark: #424242 !default;
-$ibakuman-tabs-background-dark: #4f6164 !default;
-$ibakuman-tabs-background: #424242 !default;
+
 
 :root {
     --main-top-padding: 35px;
@@ -160,7 +159,7 @@ $ibakuman-tabs-background: #424242 !default;
 
 [data-scheme="dark"] {
     --pre-text-color: #f8f8f2;
-    --pre-background-color: #272822;
+    --pre-background-color: #282a36;
     @import "../theme/dracula";
 }
 
@@ -176,7 +175,7 @@ $ibakuman-tabs-background: #424242 !default;
 
 // Color of the copy button
 $copy-btn-hover-color: #2d96bd !default;
-$copy-btn-color-dark: #fff !default;
+$copy-btn-hover-color-dark: #647070 !default;
 
 // Code type list
 $code-type-list: "language-bash" "Bash",
@@ -198,6 +197,7 @@ $code-type-list: "language-bash" "Bash",
     "language-xml" "XML",
     "language-java" "Java",
     "language-js" "JavaScript",
+    "language-tsx" "TypeScript",
     "language-javascript" "JavaScript",
     "language-json" "JSON",
     "language-kotlin" "Kotlin",

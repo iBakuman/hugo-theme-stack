@@ -12,7 +12,7 @@
 {{- $iconMap  = dict "bug" "fas fa-bug fa-fw" | merge $iconMap -}}
 {{- $iconMap  = dict "example" "fas fa-list-ol fa-fw" | merge $iconMap -}}
 {{- $iconMap  = dict "quote" "fas fa-quote-right fa-fw" | merge $iconMap -}}
-{{- $iconDetails := "fas fa-angle-right fa-fw" -}}
+{{- $iconDetails := "fas fa-chevron-left fa-fw" -}}
 
 {{- if .IsNamedParams -}}
     {{- $type := .Get "type" | default "note" -}}

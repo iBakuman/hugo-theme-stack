@@ -110,19 +110,19 @@ function initHighlight() {
       const codeEl = codeElements[codeElements.length - 1];
 
       const header = document.createElement('div');
-      header.className = 'code-header ' + codeEl.className.toLowerCase();
-      const title = document.createElement('span');
-      title.classList.add('code-title');
-      title.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-left fa-fw" aria-hidden="true"></i>');
-      title.addEventListener('click', () => {
+      header.className = 'ibakuman-toolbar ' + codeEl.className.toLowerCase();
+      const open = document.createElement('span');
+      open.classList.add('ibakuman-toolbar__toggle-open');
+      open.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-left fa-fw" aria-hidden="true"></i>');
+      open.addEventListener('click', () => {
         chroma.classList.toggle('open');
       }, false);
-      header.appendChild(title);
+      header.appendChild(open);
 
       // 创建省略号
       const ellipses = document.createElement('span');
       ellipses.insertAdjacentHTML('afterbegin', '<i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i>');
-      ellipses.classList.add('ellipses');
+      ellipses.classList.add('ibakuman-toolbar__ellipses');
       ellipses.addEventListener('click', () => {
         chroma.classList.add('open');
       }, false);
@@ -131,7 +131,7 @@ function initHighlight() {
       // 创建复制按钮
       const copy = document.createElement('span');
       copy.insertAdjacentHTML('afterbegin', '<i class="far fa-copy fa-fw" aria-hidden="true"></i>');
-      copy.classList.add('copy');
+      copy.classList.add('ibakuman-toolbar__copy');
 
       // 获得纯文本代码
       const code = codeEl.innerText;
