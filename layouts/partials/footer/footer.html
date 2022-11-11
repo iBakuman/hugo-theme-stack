@@ -1,15 +1,15 @@
 {{- $ThemeVersion := "3.13.0" -}}
 <footer class="site-footer">
     {{- $image := partialCached "helper/image" (dict "Context" . "Type" "footer") . .RelPermalink "footer" -}}
-    
+
     <section class="copyright">
-        &copy; 
+        &copy;
         {{ if and (.Site.Params.footer.since) (ne .Site.Params.footer.since (int (now.Format "2006"))) }}
-            {{ .Site.Params.footer.since }} - 
+            {{ .Site.Params.footer.since }} -
         {{ end }}
         {{ now.Format "2006" }} {{ .Site.Title }}
     </section>
-    
+
     <section class="powerby">
         {{ with .Site.Params.footer.customText }}
             {{ . | safeHTML }} <br/>
@@ -25,8 +25,8 @@
             <a href="https://beian.miit.gov.cn" target="_blank">%sICP备 %s-1 号</a>
             <img src="%s" alt="%s公网安备" style="margin-bottom: -3px;">
             <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=%s" target="_blank">%s公网安备 %s 号</a>`
-            .Site.Params.beian.icpProvince .Site.Params.beian.icp 
-            $image.permalink          .Site.Params.beian.icpProvince 
+            .Site.Params.beian.icpProvince .Site.Params.beian.icp
+            $image.permalink          .Site.Params.beian.icpProvince
             .Site.Params.beian.gongan .Site.Params.beian.gonganProvince .Site.Params.beian.gongan
             -}}
         */ -}}

@@ -20,12 +20,14 @@
             {{- block "left-sidebar" . -}}
                 {{ partial "sidebar/left.html" . }}
             {{- end -}}
+
             <main class="main full-width">
                 {{- block "main" . }}{{- end }}
+                {{ partialCached "footer/footer" . }}
             </main>
+
             {{- block "right-sidebar" . -}}{{ end }}
         </div>
-        {{ partial "footer/include.html" . }}
         {{ partial "assets.html" . }}
     </body>
 </html>

@@ -3,21 +3,6 @@
 {{- $fingerprint := .Scratch.Get "fingerprint" -}}
 {{- $config := (.Scratch.Get "this").config -}}
 
-{{- range $params.library.css -}}
-    {{- dict "Source" . "Fingerprint" $fingerprint | dict "Scratch" $.Scratch "Data" | partial "scratch/style.html" -}}
-{{- end -}}
-
-{{- range $params.library.js -}}
-    {{- dict "Source" . "Fingerprint" $fingerprint | dict "Scratch" $.Scratch "Data" | partial "scratch/script.html" -}}
-{{- end -}}
-
-{{- with (.Scratch.Get "this").styleArr -}}
-    {{- $content := delimit . "" -}}
-    {{- $path := substr (md5 $content) 0 6 | printf "css/%v" -}}
-    {{- $options := printf "%v.min.css" $path | dict "targetPath" -}}
-    {{- dict "Content" $content "Path" (printf "%v.scss" $path) "ToCSS" $options | dict "Scratch" $.Scratch "Data" | partial "scratch/style.html" -}}
-{{- end -}}
-
 {{- /* folding area config */ -}}
 {{- $folding := $params.folding | default dict -}}
 {{- $config = cond (ne $folding.maxShownLines nil) $folding.maxShownLines 10 | dict "maxShownLines" | dict "folding" | merge $config -}}
@@ -26,11 +11,105 @@
 {{- $code := $params.code | default dict -}}
 {{- $config = T "copyToClipboard" | dict "copyTitle" | dict "code" | merge $config -}}
 
-{{- /* clipboard.js */ -}}
+{{- /* Clipboard.js */ -}}
 {{- if ne $code.copy false -}}
     {{- $source := $cdn.clipboardJS | default "lib/clipboard/clipboard.min.js" -}}
     {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
     {{- $config = T "copyToClipboard" | dict "copyTitle" | dict "code" | merge $config -}}
+{{- end -}}
+
+{{- /* Vibrant.js */ -}}
+{{- /* https://github.com/jariz/vibrant.js */ -}}
+{{- if and .Site.Params.vibrant .Site.Params.vibrant.enable -}}
+    {{- $source := $cdn.vibrant | default "lib/vibrant/vibrant.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+{{- end -}}
+
+{{- /* Ribbon.js */ -}}
+{{- /* https://github.com/hustcc/ribbon.js */ -}}
+{{- if and .Site.Params.ribbon .Site.Params.ribbon.enable -}}
+    {{- $source := $cdn.ribbon | default "lib/ribbon/ribbon.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+{{- end -}}
+
+
+{{- /* NProgress */ -}}
+{{- /* https://ricostacruz.com/nprogress/ */ -}}
+{{- if and .Site.Params.nprogress .Site.Params.nprogress.enable -}}
+    {{- /* js */ -}}
+    {{- $source := $cdn.nprogressJS | default "lib/nprogress/nprogress.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    {{- /* css */ -}}
+    {{- $source := $cdn.nprogressCSS | default "lib/nprogress/nprogress.css" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
+{{- end -}}
+
+{{- /* KaTeX */ -}}
+{{- $math := $params.math -}}
+{{- if eq $math true -}}
+    {{- $math = .Site.Params.article.math | default dict -}}
+{{- else if eq $math false -}}
+    {{- $math = dict "enable" false -}}
+{{- end -}}
+{{- if $math.enable -}}
+    {{- $source := $cdn.katexCSS | default "lib/katex/katex.min.css" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
+    {{- $source := $cdn.katexJS | default "lib/katex/katex.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    {{- $source := $cdn.katexAutoRenderJS | default "lib/katex/contrib/auto-render.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    {{- if $math.copyTex -}}
+        {{- $source := $cdn.katexCopyTexJS | default "lib/katex/contrib/copy-tex.min.js" -}}
+        {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    {{- end -}}
+    {{- if $math.mhchem -}}
+        {{- $source := $cdn.katexMhchemJS | default "lib/katex/contrib/mhchem.min.js" -}}
+        {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    {{- end -}}
+    {{- $delimiters := slice (dict "left" "$$" "right" "$$" "display" true) (dict "left" "\\[" "right" "\\]" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{equation}" "right" "\\end{equation}" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{equation*}" "right" "\\end{equation*}" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{align}" "right" "\\end{align}" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{align*}" "right" "\\end{align*}" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{alignat}" "right" "\\end{alignat}" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{alignat*}" "right" "\\end{alignat*}" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{gather}" "right" "\\end{gather}" "display" true) -}}
+    {{- $delimiters = $delimiters | append (dict "left" "\\begin{CD}" "right" "\\end{CD}" "display" true) -}}
+    {{- if and $math.blockLeftDelimiter $math.blockRightDelimiter -}}
+        {{- $delimiters = $delimiters | append (dict "left" $math.blockLeftDelimiter "right" $math.blockRightDelimiter "display" true) -}}
+    {{- end -}}
+    {{- $delimiters = $delimiters | append (dict "left" "$" "right" "$" "display" false) (dict "left" "\\(" "right" "\\)" "display" false) -}}
+    {{- if and $math.inlineLeftDelimiter $math.inlineRightDelimiter -}}
+        {{- $delimiters = $delimiters | append (dict "left" $math.inlineRightDelimiter "right" $math.inlineRightDelimiter "display" false) -}}
+    {{- end -}}
+    {{- $config = dict "strict" false "delimiters" $delimiters | dict "math" | merge $config -}}
+{{- end -}}
+
+{{- /* ECharts */ -}}
+{{- /* 如果当前文章使用到了 echarts shortcode */ -}}
+{{- /* if the the current article used echarts shortcode, import echarts library. */ -}}
+{{- if (.Scratch.Get "this").echarts -}}
+    {{- $source := $cdn.echartsJS | default "lib/echarts/echarts.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    {{- $lightTheme := resources.Get "lib/echarts/theme/light.yml" | transform.Unmarshal -}}
+    {{- $darkTheme := resources.Get "lib/echarts/theme/dark.yml" | transform.Unmarshal -}}
+    {{- $config = dict "lightTheme" $lightTheme "darkTheme" $darkTheme | dict "echarts" | merge $config -}}
+{{- end -}}
+
+{{- /* PhotoSwipe */ -}}
+{{- /* .Resources: resources such as images and CSS that are associated with this page */ -}}
+{{- if .Resources -}}
+    {{- /* CSS */ -}}
+    {{- $source := $cdn.photoswipeCSS | default "lib/photoswipe/photoswipe.min.css" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
+    {{- $source := $cdn.photoswipeSkinCSS | default "lib/photoswipe/default-skin.min.css" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
+
+    {{- /* JS */ -}}
+    {{- $source := $cdn.photoswipeJS | default "lib/photoswipe/photoswipe.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+    {{- $source := $cdn.photoswipeUiJS | default "lib/photoswipe/photoswipe-ui-default.min.js" -}}
+    {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
 {{- end -}}
 
 {{- /* Config script */ -}}
@@ -39,16 +118,32 @@
 {{- /* {{- $config | jsonify | printf "window.config=%s;" | dict "Content" | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}} */ -}}
 {{- $config | jsonify | printf "window.themeConfig=%s;" | dict "Content" | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
 
-{{- /* Theme script */ -}}
-{{- /* {{- dict "Source" "js/theme.js" "Minify" true "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+{{- range $params.library.css -}}
+    {{- dict "Source" . "Fingerprint" $fingerprint | dict "Scratch" $.Scratch "Data" | partial "scratch/style.html" -}}
+{{- end -}}
 
-{{- with (.Scratch.Get "this").scriptArr -}}
-    {{- delimit . "\n" | dict "Content" | dict "Scratch" $.Scratch "Data" | partial "scratch/script.html" -}}
+{{- range $params.library.js -}}
+    {{- dict "Source" . "Fingerprint" $fingerprint | dict "Scratch" $.Scratch "Data" | partial "scratch/script.html" -}}
+{{- end -}}
+
+{{- /* Theme script */ -}}
+{{- /* NOTE: Must be placed last */ -}}
+{{- /*  生产环境下让 ESBuild 最小化输出编译生成的 JS 文件  */ -}}
+{{- /*  In production environment, let ESBuild minimize the output of compiled JS files  */ -}}
+{{- $buildOpts := dict "Source" "ts/main.ts" "Fingerprint" $fingerprint "SourceMap" "inline" "Target" "es6" "Minify" hugo.IsProduction -}}
+{{- $buildOpts | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+
+
+{{- with (.Scratch.Get "this").styleArr -}}
+    {{- $content := delimit . "" -}}
+    {{- $path := substr (md5 $content) 0 6 | printf "css/%v" -}}
+    {{- $options := printf "%v.min.css" $path | dict "targetPath" -}}
+    {{- dict "Content" $content "Path" (printf "%v.scss" $path) "ToCSS" $options | dict "Scratch" $.Scratch "Data" | partial "scratch/style.html" -}}
 {{- end -}}
 
 {{- range (.Scratch.Get "this").style -}}
-    {{- partial "plugin/style.html" . -}}
-{{- end -}} */ -}}
+    {{- partial "helper/style.html" . -}}
+{{- end -}}
 
 {{- range (.Scratch.Get "this").script -}}
     {{- partial "helper/script.html" . -}}

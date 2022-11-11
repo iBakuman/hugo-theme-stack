@@ -1,6 +1,6 @@
 {{- .Scratch.Set "version" "3.14.2" -}}
 
-{{- $params := .Params | merge .Site.Params.page -}}
+{{- $params := .Params | merge .Site.Params.article -}}
 
 {{- if eq hugo.Environment "production" -}}
     {{- $cdn := .Site.Params.cdn -}}

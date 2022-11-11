@@ -1,32 +1,16 @@
-declare global {
-    interface Window {
-        PhotoSwipe: any;
-        PhotoSwipeUI_Default: any
-    }
-}
-
-interface PhotoSwipeItem {
-    w: number;
-    h: number;
-    src: string;
-    msrc: string;
-    title?: string;
-    el: HTMLElement;
-}
-
-class StackGallery {
+export class  PhotoSwipeFeature {
     private galleryUID: number;
     private items: PhotoSwipeItem[] = [];
 
     constructor(container: HTMLElement, galleryUID = 1) {
         if (window.PhotoSwipe == undefined || window.PhotoSwipeUI_Default == undefined) {
-            console.error("PhotoSwipe lib not loaded.");
+            // console.error("PhotoSwipe lib not loaded.");
             return;
         }
 
         this.galleryUID = galleryUID;
 
-        StackGallery.createGallery(container);
+        PhotoSwipeFeature.createGallery(container);
         this.loadItems(container);
         this.bindClick();
     }
@@ -45,7 +29,7 @@ class StackGallery {
                 h: parseInt(img.getAttribute('height')),
                 src: img.src,
                 msrc: img.getAttribute('data-thumb') || img.src,
-                el: el
+                el: el as HTMLElement
             }
 
             if (figcaption) {
@@ -80,7 +64,7 @@ class StackGallery {
 
             const hasLink = img.parentElement.tagName == 'A';
 
-            let el: HTMLElement = img;
+            let el: HTMLElement = img as HTMLElement;
             /// Wrap image with figure tag, with flex-grow and flex-basis values extracted from img's data attributes
             const figure = document.createElement('figure');
             figure.style.setProperty('flex-grow', img.getAttribute('data-flex-grow') || '1');
@@ -104,6 +88,7 @@ class StackGallery {
                 figure.className = 'gallery-image';
 
                 const a = document.createElement('a');
+                // @ts-ignore
                 a.href = img.src;
                 a.setAttribute('target', '_blank');
                 img.parentNode.insertBefore(a, img);
@@ -126,19 +111,19 @@ class StackGallery {
             }
             else if (currentGallery.length) {
                 /// End gallery
-                StackGallery.wrap(currentGallery);
+                PhotoSwipeFeature.wrap(currentGallery);
                 currentGallery = [figure];
             }
         }
 
         if (currentGallery.length > 0) {
-            StackGallery.wrap(currentGallery);
+            PhotoSwipeFeature.wrap(currentGallery);
         }
     }
 
     /**
      * Wrap adjacent figure tags with div.gallery
-     * @param figures 
+     * @param figures
      */
     public static wrap(figures: HTMLElement[]) {
         const galleryContainer = document.createElement('div');
@@ -182,5 +167,3 @@ class StackGallery {
         }
     }
 }
-
-export default StackGallery;

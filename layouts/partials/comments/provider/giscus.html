@@ -37,7 +37,7 @@
             if (event.origin !== "https://giscus.app") return;
             handler();
         });
-        window.addEventListener("onColorSchemeChange", handler);
+        window.addEventListener("onThemeModeChange", handler);
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {

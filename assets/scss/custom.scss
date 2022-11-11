@@ -1,8 +1,13 @@
 /* Place your custom SCSS in HUGO_SITE_FOLDER/assets/scss/custom.scss */
 span.ibakuman-inline-note {
+	padding: 2px 4px;
 	background-color: #272822;
-	border-radius: 4px;
+	border-radius: var(--tag-border-radius);
 	color: yellow;
+
+	code {
+		color: red;
+	}
 }
 
 span.ibakuman-inline-translation {

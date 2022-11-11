@@ -6,8 +6,21 @@
     {{- else -}}
         {{- $src := .Source -}}
         {{- $integrity := .Integrity -}}
+        {{- /* The script is local */ -}}
         {{- if (urls.Parse $src).Host | not -}}
             {{- $resource := resources.Get $src -}}
+            {{- if strings.HasSuffix .Source ".ts" -}}
+                {{- $buildOpts := dict -}}
+                {{- /* 是否启用 sourceMap */ -}}
+                {{- with .SourceMap -}}
+                    {{- $buildOpts = dict "sourceMap" . | merge $buildOpts -}}
+                {{- end -}}
+                {{- with .Target -}}
+                    {{- $buildOpts = dict "target" . | merge $buildOpts -}}
+                {{- end -}}
+                {{- $resource = js.Build $buildOpts $resource -}}
+            {{- end -}}
+
             {{- with .Template -}}
                 {{- $resource = $resource | resources.ExecuteAsTemplate . $.Context -}}
             {{- end -}}
@@ -20,6 +33,7 @@
             {{- end -}}
             {{- $src = $resource.RelPermalink -}}
         {{- end -}}
+        {{- /* The script is located remotely */ -}}
         {{- $attrs := printf `src="%v"` $src -}}
         {{- if .Crossorigin -}}
             {{- $attrs = ` crossorigin="anonymous"` | add $attrs -}}

@@ -16,7 +16,7 @@
                     <h2 class="section-card__description">{{ . }}</h2>
                 {{ end }}
             </div>
-    
+
             {{- $image := partialCached "helper/image" (dict "Context" . "Type" "section") .RelPermalink "section" -}}
             {{ if $image.exists }}
                 <div class="section-card__image">
@@ -24,17 +24,17 @@
                         {{- $Permalink := $image.resource.RelPermalink -}}
                         {{- $Width := $image.resource.Width -}}
                         {{- $Height := $image.resource.Height -}}
-    
+
                         {{- if (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
                             {{- $thumbnail := $image.resource.Fill "120x120" -}}
                             {{- $Permalink = $thumbnail.RelPermalink -}}
                             {{- $Width = $thumbnail.Width -}}
                             {{- $Height = $thumbnail.Height -}}
                         {{- end -}}
-                        
-                        <img src="{{ $Permalink }}" 
+
+                        <img src="{{ $Permalink }}"
                             width="{{ $Width }}"
-                            height="{{ $Height }}" 
+                            height="{{ $Height }}"
                             loading="lazy">
                     {{ else }}
                         <img src="{{ $image.permalink }}" loading="lazy" />
@@ -87,8 +87,6 @@
     </section>
 
     {{- partial "pagination.html" . -}}
-
-    {{ partialCached "footer/footer" . }}
 {{ end }}
 
 {{ define "right-sidebar" }}

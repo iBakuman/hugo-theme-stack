@@ -32,7 +32,7 @@
             document.body.appendChild(d);
             d.onload = () => {
                 loadDisqusJS();
-                window.addEventListener('onColorSchemeChange', (e) => {
+                window.addEventListener('onThemeModeChange', (e) => {
                     if (disqusjs) {
                         loadDisqusJS();
                     }

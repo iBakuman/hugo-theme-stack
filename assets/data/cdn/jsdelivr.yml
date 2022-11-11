@@ -3,6 +3,13 @@ prefix:
   # simple-icons@7.3.0 https://github.com/simple-icons/simple-icons
   simpleIcons: https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/
 libFiles:
+  # https://ricostacruz.com/nprogress/
+  nprogressJS: 'nprogress@0.2.0/nprogress.js'
+  nprogressCSS: 'nprogress@0.2.0/nprogress.css'
+  # https://github.com/hustcc/ribbon.js
+  ribbon: 'gh/zhixuan2333/gh-blog@v0.1.0/js/ribbon.min.js'
+  # node-vibrant@3.1.6 https://github.com/jariz/vibrant.js
+  vibrant: 'node-vibrant@3.1.6/dist/vibrant.min.js'
   # fontawesome-free@6.1.1 https://fontawesome.com/
   fontawesomeFreeCSS: '@fortawesome/fontawesome-free@6.1.1/css/all.min.css'
   # animate.css@4.1.1 https://github.com/daneden/animate.css
