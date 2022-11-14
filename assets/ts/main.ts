@@ -74,7 +74,7 @@ window.addEventListener('load', () => {
 if (window.NProgress) {
     document.addEventListener('readystatechange', () => {
         window.NProgress.start();
-        console.log('init nprogress...');
+        // console.log('init nprogress...');
         document.addEventListener('readystatechange', () => {
             if (document.readyState === 'interactive') window.NProgress.inc(0.8);
             if (document.readyState === 'complete') window.NProgress.done();

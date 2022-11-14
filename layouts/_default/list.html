@@ -48,14 +48,14 @@
     {{- $pages := .Pages | complement $subsections -}}
 
     {{- /* debug code
-    {{ range $index, $section := $subsections }}
-        {{- warnf "(Sub Sections){Title: %v, Len: %v} | Kind: %v ---------- Subsection-%02d: %v\n"
-        $.Title (len $subsections) .Kind $index .Title -}}
-    {{ end }}
-    {{ range $index, $page := .Pages }}
-        {{- warnf "(Pages){Kind: %v, Title: %v, Pages Len: %v, Lang: %v} | Kind: %v ---------- Page-%02d: %v\n"
-        $.Kind $.Title (len $.Pages) $.Language $page.Kind $index .Title -}}
-    {{ end }}
+        {{ range $index, $section := $subsections }}
+            {{- warnf "(Sub Sections){Title: %v, Len: %v} | Kind: %v ---------- Subsection-%02d: %v\n"
+            $.Title (len $subsections) .Kind $index .Title -}}
+        {{ end }}
+        {{ range $index, $page := .Pages }}
+            {{- warnf "(Pages){Kind: %v, Title: %v, Pages Len: %v, Lang: %v} | Kind: %v ---------- Page-%02d: %v\n"
+            $.Kind $.Title (len $.Pages) $.Language $page.Kind $index .Title -}}
+        {{ end }}
     */ -}}
 
     {{- /* If there are no normal pages and subsections, it means that the current processing is a taxonomy template */ -}}
