@@ -1,4 +1,5 @@
-<section class="article-content">
+{{- $params := .Scratch.Get "params" -}}
+<section class="article-content {{ if $params.autoNumbering }} auto-numbering {{ end }}">
     <!-- Refer to https://discourse.gohugo.io/t/responsive-tables-in-markdown/10639/5 -->
     {{ $wrappedTable := printf "<div class=\"table-wrapper\">${1}</div>" }}
     {{ .Content | replaceRE "(<table>(?:.|\n)+?</table>)" $wrappedTable | safeHTML }}
