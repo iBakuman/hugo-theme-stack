@@ -5,17 +5,23 @@ interface EchartsConfig {
 }
 
 interface FoldingConfig {
-    maxShownLines: number
+    maxShownLines: number;
 }
 
 interface CodeConfig {
-    copyTitle: string
+    copyTitle: string;
+}
+
+interface MathConfig {
+    delimiters: { display: boolean, left: string, right: string };
+    strict: boolean;
 }
 
 interface ThemeConfig {
     folding: FoldingConfig;
     echarts: EchartsConfig;
     code: CodeConfig;
+    math?: MathConfig;
 }
 
 interface Window {

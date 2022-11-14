@@ -1,7 +1,7 @@
 {{ define "body-class" }}template-search{{ end }}
 
 {{ define "head" }}
-    {{- with .OutputFormats.Get "json" -}} 
+    {{- with .OutputFormats.Get "json" -}}
         <link rel="preload" href="{{ .Permalink }}" as="fetch" crossorigin="anonymous">
     {{- end -}}
 {{ end }}

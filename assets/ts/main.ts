@@ -18,6 +18,7 @@ import { ThemeStorage } from './storage/ThemeStorage';
 import { VibrantFeature } from './feature/vendor/VibrantFeature';
 import { setupScrollspy } from 'ts/scrollspy';
 import { setupSmoothAnchors } from 'ts/smoothAnchors';
+import { KatexFeature } from './feature/vendor/KatexFeature';
 /* =============================== Imports End ============================== */
 
 class Stack {
@@ -45,6 +46,7 @@ class Stack {
             new CodeBlockFeature(this.config),
             new TabsFeature(this.config),
             new VibrantFeature(storage),
+            new KatexFeature(this.config)
         ];
 
         for (const feature of this.features) {

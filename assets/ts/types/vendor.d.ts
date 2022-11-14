@@ -40,7 +40,9 @@ interface Window {
     ClipboardJS: ClipboardJS;
 
     PhotoSwipe: any;
-    PhotoSwipeUI_Default: any
+    PhotoSwipeUI_Default: any;
+
+    renderMathInElement(el: HTMLElement, config: MathConfig);
     /* ======= Objects Injected Into Window By Third - Party Libraries End ====== */
 }
 
