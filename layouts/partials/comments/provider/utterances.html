@@ -1,4 +1,4 @@
-<script src="https://utteranc.es/client.js" 
+<script src="https://utteranc.es/client.js"
         repo="{{ .Site.Params.comments.utterances.repo }}"
         issue-term="{{ .Site.Params.comments.utterances.issueTerm }}"
         {{ with .Site.Params.comments.utterances.label }}
@@ -16,6 +16,8 @@
 </style>
 
 <script>
+    let utterancesLoaded = false;
+
     function setUtterancesTheme(theme) {
         let utterances = document.querySelector('.utterances iframe');
         if (utterances) {
@@ -31,10 +33,14 @@
 
     addEventListener('message', event => {
         if (event.origin !== 'https://utteranc.es') return;
+
+        /// Called when Utterances is ready
+        utterancesLoaded = true;
         setUtterancesTheme(document.documentElement.dataset.scheme)
     });
 
     window.addEventListener('onThemeModeChange', (e) => {
+        if (!utterancesLoaded) return;
         setUtterancesTheme(e.detail)
     })
 </script>
