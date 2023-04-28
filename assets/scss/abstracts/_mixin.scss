@@ -5,3 +5,9 @@
 @mixin details-transition-close {
     @include transition(max-height 0.8s cubic-bezier(0.5, 0, 1, 0) 0s);
 }
+
+@mixin blur {
+    .blur & {
+        @include filter(blur(1.5px));
+    }
+}

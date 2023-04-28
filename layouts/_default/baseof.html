@@ -27,20 +27,19 @@
             </main>
 
             {{- block "right-sidebar" . -}}{{ end }}
+
+            <div class="fixed-buttons">
+                {{- /* top button */ -}}
+                <a href="#" class="fixed-buttons__back-to-top" class="fixed-button" title="{{ T `backToTop` }}">
+                    <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+                </a>
+
+                {{- /* comment button */ -}}
+                <a href="#" id="fixed-buttons__view-comments" class="fixed-button" title="{{ T `viewComments` }}">
+                    <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
         </div>
-
-        <div id="fixed-buttons">
-            {{- /* top button */ -}}
-            <a href="#" id="back-to-top" class="fixed-button" title="{{ T `backToTop` }}">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a>
-
-            {{- /* comment button */ -}}
-            <a href="#" id="view-comments" class="fixed-button" title="{{ T `viewComments` }}">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div>
-
         {{ partial "assets.html" . }}
     </body>
 </html>

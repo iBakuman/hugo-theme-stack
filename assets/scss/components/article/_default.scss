@@ -30,6 +30,12 @@
             .article-details {
                 padding: var(--card-padding);
                 padding-bottom: 0;
+
+                .article-title-wrapper {
+                    h1 {
+                        text-align: center;
+                    }
+                }
             }
         }
 
@@ -95,7 +101,12 @@
         margin: 1.5em 0;
     }
 
-    > h1, h2, h3, h4, h5, h6 {
+    > h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         margin-inline-start: calc((var(--card-padding)) * -1);
         padding-inline-start: calc(var(--card-padding) - var(--heading-border-size));
         border-inline-start: var(--heading-border-size) solid var(--accent-color);
@@ -188,7 +199,6 @@
         }
     }
 
-
     table {
         width: 100%;
         border-collapse: collapse;
@@ -247,17 +257,16 @@
     }
 
     // Negative margins
-//     blockquote,
-//     figure,
-//     .highlight,// TODO: 修改代码块的显示位置。
-//     pre,
-//     .gallery,
-//     .video-wrapper,
-//     .table-wrapper,
-//     .s_video_simple {
-//         margin-left: calc((var(--card-padding)) * -1);
-//         margin-right: calc((var(--card-padding)) * -1);
-//         width: calc(100% + var(--card-padding) * 2);
-//     }
+    //     blockquote,
+    //     figure,
+    //     .highlight,// TODO: 修改代码块的显示位置。
+    //     pre,
+    //     .gallery,
+    //     .video-wrapper,
+    //     .table-wrapper,
+    //     .s_video_simple {
+    //         margin-left: calc((var(--card-padding)) * -1);
+    //         margin-right: calc((var(--card-padding)) * -1);
+    //         width: calc(100% + var(--card-padding) * 2);
+    //     }
 }
-
