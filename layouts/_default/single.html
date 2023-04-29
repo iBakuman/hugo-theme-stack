@@ -55,7 +55,9 @@
         {{ partial "comments/include" . }}
     {{ end }}
 
-    {{ partialCached "article/components/photoswipe" . }}
+    {{- if .Resources -}}
+        {{ partialCached "article/components/photoswipe" . }}
+    {{- end -}}
 {{ end }}
 
 {{ define "right-sidebar" }}

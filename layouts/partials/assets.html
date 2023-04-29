@@ -111,6 +111,7 @@
     {{- $source := $cdn.photoswipeUiJS | default "lib/photoswipe/photoswipe-ui-default.min.js" -}}
     {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
 {{- end -}}
+{{- /* PhotoSwipe End */ -}}
 
 {{- /* Config script */ -}}
 {{- /* If the theme configuration is set on window.config, there is a conflict with ribbon.min.js */ -}}
