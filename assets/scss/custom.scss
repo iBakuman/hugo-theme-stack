@@ -13,3 +13,7 @@ span.ibakuman-inline-note {
 span.ibakuman-inline-translation {
 	color: cyan;
 }
+
+.article-content > pre {
+	background-color: var(--card-background);
+}
