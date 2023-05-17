@@ -30,6 +30,8 @@
                 content: counters(item, ".") ". ";
                 font-weight: bold;
                 margin-right: 5px;
+                display: inline-block;
+                text-align: right;
             }
         }
 
