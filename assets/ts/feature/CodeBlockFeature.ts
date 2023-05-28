@@ -8,10 +8,11 @@ export class CodeBlockFeature implements Feature {
     init(): void {
         this.initHighlight();
         this.createTableWrapper();
+        this.addScrollable();
     }
 
     initHighlight(): void {
-        Util.forEach(document.querySelectorAll('.article-content > .highlight > .chroma'), chroma => {
+        Util.forEach(document.querySelectorAll('.article-content .highlight > .chroma'), chroma => {
             const codeElements = chroma.querySelectorAll('pre.chroma > code');
             if (codeElements.length) {
                 const codeEl = codeElements[codeElements.length - 1];
@@ -59,11 +60,35 @@ export class CodeBlockFeature implements Feature {
     }
 
     createTableWrapper(): void {
-        Util.forEach(document.querySelectorAll('.article-content > .highlight table'), table => {
+        Util.forEach(document.querySelectorAll('.article-content .highlight table'), table => {
             const wrapper = document.createElement('div');
             wrapper.className = 'table-wrapper';
             table.parentElement.replaceChild(wrapper, table);
             wrapper.appendChild(table);
         });
+    }
+
+    addScrollable(): void {
+        var codeBlocks = document.querySelectorAll('.article-content .highlight > div.chroma')
+        codeBlocks.forEach((codeBlock) => {
+            const table = codeBlock.querySelector('div.table-wrapper > table')
+            if (table && table.scrollWidth > table.clientWidth) {
+                codeBlock.addEventListener('wheel', (event) => {
+                    const wheelEvent = event as WheelEvent
+                    event.preventDefault()
+                    table.scrollLeft += wheelEvent.deltaY
+                })
+            }
+        })
+        var preTags = document.querySelectorAll('.article-content > pre')
+        preTags.forEach((preTag) => {
+            preTag.addEventListener('wheel', (event) => {
+                if (preTag.scrollWidth > preTag.clientWidth) {
+                    const wheelEvent = event as WheelEvent
+                    event.preventDefault()
+                    preTag.scrollLeft += wheelEvent.deltaY
+                }
+            })
+        })
     }
 }

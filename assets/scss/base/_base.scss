@@ -27,7 +27,8 @@ body {
 
 /* scrollbar styles for Chromium */
 ::-webkit-scrollbar {
-    height: auto;
+    height: 5px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
